@@ -7,7 +7,7 @@ trigger:
 - none
 
 pool:
-  vmImage: windows-
+  vmImage: windows-latest
 
 steps:
 - task: PythonScript@0
@@ -22,12 +22,25 @@ steps:
       subprocess.check_call([sys.executable, '-m', 'pip', 'install', 
       'requests'])
 
+- task: PythonScript@0
+  displayName: 'Get file from Github and set variable'
+  inputs:
+    scriptSource: 'inline'
+    script: |
+      import requests as req
+      
+      #raw file url
+      url='https://raw.githubusercontent.com/fakemail1865/SemarchyModel/main/testnew%20%5B0.0%5D.xml'
+      
+      with req.get(url) as rq:
+          payload = rq.content
+      
+      payload = payload.decode()
+      
+      print ('##vso[task.setvariable variable=payload;isoutput=true]'payload)
 
-
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: PythonScript@0
+  displayName: 'Print payload variable'
+  inputs:
+    scriptSource: 'inline'
+    script: 'print($(payload))'

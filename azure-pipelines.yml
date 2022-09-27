@@ -4,12 +4,26 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+- none
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-
 
 steps:
+- task: PythonScript@0
+  displayName: 'install requests latest requests library'
+  inputs:
+    scriptSource: 'inline'
+    script: |
+      import sys
+      import subprocess
+      
+      # implement pip as a subprocess:
+      subprocess.check_call([sys.executable, '-m', 'pip', 'install', 
+      'requests'])
+
+
+
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 

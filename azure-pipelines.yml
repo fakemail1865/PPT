@@ -37,7 +37,7 @@ steps:
       
       payload = payload.decode()
       
-      print ('##vso[task.setvariable variable=payload;isoutput=true]'payload)
+      print ('##vso[task.setvariable variable=payload;isoutput=true]' + payload)
 
 - task: PythonScript@0
   displayName: 'Print payload variable'

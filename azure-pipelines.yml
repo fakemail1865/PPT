@@ -9,6 +9,10 @@ trigger:
 pool:
   vmImage: windows-latest
 
+variables:
+  - name: payload
+    value: abc
+
 steps:
 - task: PythonScript@0
   displayName: 'install requests latest requests library'

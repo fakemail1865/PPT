@@ -11,6 +11,7 @@ pool:
 
 variables:
   - name: payload
+    value: "initial value"
 
 steps:
 - task: PythonScript@0
